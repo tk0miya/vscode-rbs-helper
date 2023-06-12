@@ -1,7 +1,7 @@
 {
   "name": "open-rbs-file",
-  "displayName": "open-rbs-file",
-  "description": "",
+  "displayName": "Open RBS file",
+  "description": "Provide simple command to open RBS file",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.79.0"
@@ -14,8 +14,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "open-rbs-file.helloWorld",
-        "title": "Hello World"
+        "command": "open-rbs-file.openRbsFile",
+        "title": "RBS: Open .rbs file for the current file"
       }
     ]
   },

@@ -1,26 +1,42 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "open-rbs-file" is now active!');
-
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('open-rbs-file.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from open-rbs-file!');
-	});
-
-	context.subscriptions.push(disposable);
+	context.subscriptions.push(vscode.commands.registerCommand('open-rbs-file.openRbsFile', openRBSFile));
 }
 
-// This method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }
+
+
+function openRBSFile(): void {
+	const currentFile = vscode.window.activeTextEditor?.document.uri;
+	if (currentFile) {
+		if (currentFile.path.endsWith('.rb')) {
+			const rbsFileUri = getRBSFileUri(currentFile);
+			ensureFile(rbsFileUri).then(() => {
+				vscode.commands.executeCommand('vscode.open', rbsFileUri)
+			});
+		}
+	}
+}
+
+async function ensureFile(uri: vscode.Uri): Promise<void> {
+	const baseDirectory = vscode.Uri.joinPath(uri, '..');
+	await vscode.workspace.fs.createDirectory(baseDirectory);
+	try {
+		await vscode.workspace.fs.stat(uri)
+	} catch {
+		const workspaceEdit = new vscode.WorkspaceEdit();
+		workspaceEdit.createFile(uri);
+		vscode.workspace.applyEdit(workspaceEdit);
+	};
+}
+
+function getRBSFileUri(rubyFileUri: vscode.Uri): vscode.Uri {
+	const workspaceFolder = vscode.workspace.workspaceFolders?.find((workspaceFolder) => rubyFileUri.path.startsWith(workspaceFolder.uri.path));
+	if (workspaceFolder) {
+		const relativeRubyFilePath = rubyFileUri.path.replace(workspaceFolder.uri.path, '');
+		return vscode.Uri.file(`${workspaceFolder.uri.path}/sig/handwritten/${relativeRubyFilePath}s`);
+	} else {
+		return rubyFileUri;
+	}
+}
