@@ -16,6 +16,9 @@ function openRBSFile(): void {
 			ensureFile(rbsFileUri).then(() => {
 				vscode.commands.executeCommand('vscode.open', rbsFileUri)
 			});
+		} else if (currentFile.path.endsWith('.rbs')) {
+			const rubyFileUri = getRubyFileUri(currentFile);
+			vscode.commands.executeCommand('vscode.open', rubyFileUri);
 		}
 	}
 }
@@ -39,6 +42,17 @@ function getRBSFileUri(rubyFileUri: Uri): Uri {
 		return Uri.file(`${workspaceFolder.uri.path}${getSignatureDirectory()}${relativeRubyFilePath}s`);
 	} else {
 		return rubyFileUri;
+	}
+}
+
+function getRubyFileUri(rbsFileUri: Uri): Uri {
+	const workspaceFolder = vscode.workspace.workspaceFolders?.find((workspaceFolder) => rbsFileUri.path.startsWith(workspaceFolder.uri.path));
+	if (workspaceFolder) {
+		const signatureUri = Uri.joinPath(workspaceFolder.uri, getSignatureDirectory());
+		const relativeRubyFilePath = rbsFileUri.path.replace(/\.rbs/, '.rb').replace(signatureUri.path, '');
+		return vscode.Uri.file(`${workspaceFolder.uri.path}${relativeRubyFilePath}`);
+	} else {
+		return rbsFileUri;
 	}
 }
 
