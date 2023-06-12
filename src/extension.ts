@@ -35,8 +35,17 @@ function getRBSFileUri(rubyFileUri: vscode.Uri): vscode.Uri {
 	const workspaceFolder = vscode.workspace.workspaceFolders?.find((workspaceFolder) => rubyFileUri.path.startsWith(workspaceFolder.uri.path));
 	if (workspaceFolder) {
 		const relativeRubyFilePath = rubyFileUri.path.replace(workspaceFolder.uri.path, '');
-		return vscode.Uri.file(`${workspaceFolder.uri.path}/sig/handwritten/${relativeRubyFilePath}s`);
+		return vscode.Uri.file(`${workspaceFolder.uri.path}${getSignatureDirectory()}${relativeRubyFilePath}s`);
 	} else {
 		return rubyFileUri;
+	}
+}
+
+function getSignatureDirectory(): string {
+	const directory = vscode.workspace.getConfiguration('open-rbs-file').get('signature-directory') as string;
+	if (directory.startsWith('/')) {
+		return directory;
+	} else {
+		return `/${directory}`;
 	}
 }
