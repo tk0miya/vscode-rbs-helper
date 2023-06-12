@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { Uri } from 'vscode';
 
 export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(vscode.commands.registerCommand('open-rbs-file.openRbsFile', openRBSFile));
@@ -19,8 +20,8 @@ function openRBSFile(): void {
 	}
 }
 
-async function ensureFile(uri: vscode.Uri): Promise<void> {
-	const baseDirectory = vscode.Uri.joinPath(uri, '..');
+async function ensureFile(uri: Uri): Promise<void> {
+	const baseDirectory = Uri.joinPath(uri, '..');
 	await vscode.workspace.fs.createDirectory(baseDirectory);
 	try {
 		await vscode.workspace.fs.stat(uri)
@@ -31,11 +32,11 @@ async function ensureFile(uri: vscode.Uri): Promise<void> {
 	};
 }
 
-function getRBSFileUri(rubyFileUri: vscode.Uri): vscode.Uri {
+function getRBSFileUri(rubyFileUri: Uri): Uri {
 	const workspaceFolder = vscode.workspace.workspaceFolders?.find((workspaceFolder) => rubyFileUri.path.startsWith(workspaceFolder.uri.path));
 	if (workspaceFolder) {
 		const relativeRubyFilePath = rubyFileUri.path.replace(workspaceFolder.uri.path, '');
-		return vscode.Uri.file(`${workspaceFolder.uri.path}${getSignatureDirectory()}${relativeRubyFilePath}s`);
+		return Uri.file(`${workspaceFolder.uri.path}${getSignatureDirectory()}${relativeRubyFilePath}s`);
 	} else {
 		return rubyFileUri;
 	}
