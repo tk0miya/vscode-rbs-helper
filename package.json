@@ -5,6 +5,7 @@
     "type": "git",
     "url": "https://github.com/tk0miya/vscode-rbs-helper"
   },
+  "publisher": "tk0miya",
   "description": "Provide simple commands to maintain RBS files",
   "version": "0.1.0",
   "engines": {
