@@ -2,9 +2,12 @@
 
 This extension allows you to open RBS file against the current file.
 
+![](preview.png)
+
 ## Features
 
 * Open RBS file against the current file
+* Copy prototype RBS file on creating RBS file
 
 ## Extension Settings
 
