@@ -1,1 +1,6 @@
-# sample.rbs
+class Account
+  attr_reader name: untyped
+  attr_reader age: untyped
+
+  def initialize: (name: untyped, age: untyped) -> untyped
+end
