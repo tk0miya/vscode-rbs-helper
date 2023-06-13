@@ -1,6 +1,10 @@
 {
   "name": "open-rbs-file",
   "displayName": "Open RBS file",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tk0miya/vscode-open-rbs-file"
+  },
   "description": "Provide simple command to open RBS file",
   "version": "0.1.0",
   "engines": {
