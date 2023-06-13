@@ -2,7 +2,7 @@
 
 This extension allows you to create/edit RBS file.
 
-![](preview.png)
+![](preview.gif)
 
 ## Features
 
