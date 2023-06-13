@@ -3,7 +3,7 @@ import { Uri } from 'vscode';
 import * as fs from 'fs';
 
 export function activate(context: vscode.ExtensionContext) {
-	context.subscriptions.push(vscode.commands.registerCommand('open-rbs-file.openRbsFile', openRBSFile));
+	context.subscriptions.push(vscode.commands.registerCommand('rbs-helper.openRbsFile', openRBSFile));
 }
 
 export function deactivate() { }
@@ -71,7 +71,7 @@ function getRubyFileUri(rbsFileUri: Uri): Uri {
 }
 
 function getSignatureDirectory(): string {
-	const directory = vscode.workspace.getConfiguration('open-rbs-file').get('signature-directory') as string;
+	const directory = vscode.workspace.getConfiguration('rbs-helper').get('signature-directory') as string;
 	if (directory.startsWith('/')) {
 		return directory;
 	} else {
@@ -80,7 +80,7 @@ function getSignatureDirectory(): string {
 }
 
 function getSignaturePrototypeDirectory(): string {
-	const directory = vscode.workspace.getConfiguration('open-rbs-file').get('signature-prototype-directory') as string;
+	const directory = vscode.workspace.getConfiguration('rbs-helper').get('signature-prototype-directory') as string;
 	if (directory.startsWith('/')) {
 		return directory;
 	} else {
@@ -89,5 +89,5 @@ function getSignaturePrototypeDirectory(): string {
 }
 
 function isCopySignaturePrototypeOnCreate(): boolean {
-	return vscode.workspace.getConfiguration('open-rbs-file').get('copy-signature-prototype-on-create') as boolean;
+	return vscode.workspace.getConfiguration('rbs-helper').get('copy-signature-prototype-on-create') as boolean;
 }

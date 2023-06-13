@@ -1,11 +1,11 @@
 {
-  "name": "open-rbs-file",
-  "displayName": "Open RBS file",
+  "name": "rbs-helper",
+  "displayName": "RBS helper",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tk0miya/vscode-open-rbs-file"
+    "url": "https://github.com/tk0miya/vscode-rbs-helper"
   },
-  "description": "Provide simple command to open RBS file",
+  "description": "Provide simple commands to maintain RBS files",
   "version": "0.1.0",
   "engines": {
     "vscode": "^1.79.0"
@@ -18,24 +18,24 @@
   "contributes": {
     "commands": [
       {
-        "command": "open-rbs-file.openRbsFile",
+        "command": "rbs-helper.openRbsFile",
         "title": "RBS: Open .rbs file for the current file"
       }
     ],
     "configuration": {
       "title": "Ruby: Open RBS file",
       "properties": {
-        "open-rbs-file.signature-directory": {
+        "rbs-helper.signature-directory": {
           "type": "string",
           "description": "The name of the signature directory",
           "default": "sig/handwritten"
         },
-        "open-rbs-file.signature-prototype-directory": {
+        "rbs-helper.signature-prototype-directory": {
           "type": "string",
           "description": "The name of the signature prototype directory",
           "default": "sig/prototype"
         },
-        "open-rbs-file.copy-signature-prototype-on-create": {
+        "rbs-helper.copy-signature-prototype-on-create": {
           "type": "boolean",
           "description": "Copy the signature prototype file on creating a new RBS file",
           "default": true
