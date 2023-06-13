@@ -2,7 +2,7 @@
   "name": "open-rbs-file",
   "displayName": "Open RBS file",
   "description": "Provide simple command to open RBS file",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "engines": {
     "vscode": "^1.79.0"
   },
