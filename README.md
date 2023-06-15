@@ -17,6 +17,7 @@ This extension contributes the following settings:
 * `rbs-helper.signature-directory`: The name of the signature directory
 * `rbs-helper.signature-prototype-directory`: The name of the signature prototype directory
 * `rbs-helper.copy-signature-prototype-on-create`: Copy the signature prototype file on creating a new RBS file
+* `rbs-helper.strip-lib-directory`: Strip `lib/` directory from the filename of signature. Useful for gem development
 
 ## Release Notes
 

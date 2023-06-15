@@ -40,6 +40,11 @@
           "type": "boolean",
           "description": "Copy the signature prototype file on creating a new RBS file",
           "default": true
+        },
+        "rbs-helper.strip-lib-directory": {
+          "type": "boolean",
+          "description": "Strip lib/ directory from the filename of signature. Useful for gem development",
+          "default": true
         }
       }
     }
