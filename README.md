@@ -21,6 +21,12 @@ This extension contributes the following settings:
 
 ## Release Notes
 
-### 1.0.0
+### 0.2.0
+
+* Add a new configuration: `strip-lib-directory` to support gem development.
+  It strips `lib/` directory on searching the signature file.
+  (ex. `lib/foo.rb` -> `sig/handwritten/foo.rbs`)
+
+### 0.1.0
 
 Initial release of rbs-helper
