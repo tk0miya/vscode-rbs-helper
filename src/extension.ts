@@ -42,7 +42,10 @@ async function ensureFile(targetUri: Uri, templateUri: Uri): Promise<void> {
 function getSignatureFileUri(rubyFileUri: Uri): Uri {
 	const workspaceFolder = vscode.workspace.workspaceFolders?.find((workspaceFolder) => rubyFileUri.path.startsWith(workspaceFolder.uri.path));
 	if (workspaceFolder) {
-		const relativeRubyFilePath = rubyFileUri.path.replace(workspaceFolder.uri.path, '');
+		let relativeRubyFilePath = rubyFileUri.path.replace(workspaceFolder.uri.path, '');
+		if (shouldStripLibDirectoryFromFilename() && relativeRubyFilePath.startsWith('/lib')) {
+			relativeRubyFilePath = relativeRubyFilePath.replace('/lib', '');
+		}
 		return Uri.file(`${workspaceFolder.uri.path}${getSignatureDirectory()}${relativeRubyFilePath}s`);
 	} else {
 		return rubyFileUri;
@@ -52,7 +55,10 @@ function getSignatureFileUri(rubyFileUri: Uri): Uri {
 function getSignaturePrototypeFileUri(rubyFileUri: Uri): Uri {
 	const workspaceFolder = vscode.workspace.workspaceFolders?.find((workspaceFolder) => rubyFileUri.path.startsWith(workspaceFolder.uri.path));
 	if (workspaceFolder) {
-		const relativeRubyFilePath = rubyFileUri.path.replace(workspaceFolder.uri.path, '');
+		let relativeRubyFilePath = rubyFileUri.path.replace(workspaceFolder.uri.path, '');
+		if (shouldStripLibDirectoryFromFilename() && relativeRubyFilePath.startsWith('/lib')) {
+			relativeRubyFilePath = relativeRubyFilePath.replace('/lib', '');
+		}
 		return Uri.file(`${workspaceFolder.uri.path}${getSignaturePrototypeDirectory()}${relativeRubyFilePath}s`);
 	} else {
 		return rubyFileUri;
@@ -64,7 +70,12 @@ function getRubyFileUri(rbsFileUri: Uri): Uri {
 	if (workspaceFolder) {
 		const signatureUri = Uri.joinPath(workspaceFolder.uri, getSignatureDirectory());
 		const relativeRubyFilePath = rbsFileUri.path.replace(/\.rbs/, '.rb').replace(signatureUri.path, '');
-		return vscode.Uri.file(`${workspaceFolder.uri.path}${relativeRubyFilePath}`);
+		const libRubyFilePath = `${workspaceFolder.uri.path}/lib${relativeRubyFilePath}`;
+		if (shouldStripLibDirectoryFromFilename() && fs.existsSync(libRubyFilePath)) {
+			return vscode.Uri.file(libRubyFilePath);
+		} else {
+			return vscode.Uri.file(`${workspaceFolder.uri.path}${relativeRubyFilePath}`);
+		}
 	} else {
 		return rbsFileUri;
 	}
@@ -90,4 +101,8 @@ function getSignaturePrototypeDirectory(): string {
 
 function isCopySignaturePrototypeOnCreate(): boolean {
 	return vscode.workspace.getConfiguration('rbs-helper').get('copy-signature-prototype-on-create') as boolean;
+}
+
+function shouldStripLibDirectoryFromFilename(): boolean {
+	return vscode.workspace.getConfiguration('rbs-helper').get('strip-lib-directory') as boolean;
 }
