@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { Uri } from 'vscode';
-import * as fs from 'fs';
+import * as fs from 'node:fs';
 
 export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(vscode.commands.registerCommand('rbs-helper.openRbsFile', openRBSFile));
@@ -47,9 +47,9 @@ function getSignatureFileUri(rubyFileUri: Uri): Uri {
 			relativeRubyFilePath = relativeRubyFilePath.replace('/lib', '');
 		}
 		return Uri.file(`${workspaceFolder.uri.path}${getSignatureDirectory()}${relativeRubyFilePath}s`);
-	} else {
-		return rubyFileUri;
 	}
+
+	return rubyFileUri;
 }
 
 function getSignaturePrototypeFileUri(rubyFileUri: Uri): Uri {
@@ -60,9 +60,9 @@ function getSignaturePrototypeFileUri(rubyFileUri: Uri): Uri {
 			relativeRubyFilePath = relativeRubyFilePath.replace('/lib', '');
 		}
 		return Uri.file(`${workspaceFolder.uri.path}${getSignaturePrototypeDirectory()}${relativeRubyFilePath}s`);
-	} else {
-		return rubyFileUri;
 	}
+
+	return rubyFileUri;
 }
 
 function getRubyFileUri(rbsFileUri: Uri): Uri {
@@ -73,30 +73,30 @@ function getRubyFileUri(rbsFileUri: Uri): Uri {
 		const libRubyFilePath = `${workspaceFolder.uri.path}/lib${relativeRubyFilePath}`;
 		if (shouldStripLibDirectoryFromFilename() && fs.existsSync(libRubyFilePath)) {
 			return vscode.Uri.file(libRubyFilePath);
-		} else {
-			return vscode.Uri.file(`${workspaceFolder.uri.path}${relativeRubyFilePath}`);
 		}
-	} else {
-		return rbsFileUri;
+
+		return vscode.Uri.file(`${workspaceFolder.uri.path}${relativeRubyFilePath}`);
 	}
+
+	return rbsFileUri;
 }
 
 function getSignatureDirectory(): string {
 	const directory = vscode.workspace.getConfiguration('rbs-helper').get('signature-directory') as string;
 	if (directory.startsWith('/')) {
 		return directory;
-	} else {
-		return `/${directory}`;
 	}
+
+	return `/${directory}`;
 }
 
 function getSignaturePrototypeDirectory(): string {
 	const directory = vscode.workspace.getConfiguration('rbs-helper').get('signature-prototype-directory') as string;
 	if (directory.startsWith('/')) {
 		return directory;
-	} else {
-		return `/${directory}`;
 	}
+
+	return `/${directory}`;
 }
 
 function isCopySignaturePrototypeOnCreate(): boolean {
