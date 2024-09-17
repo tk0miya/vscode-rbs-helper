@@ -14,7 +14,7 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": ["onLanguage:ruby"],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
@@ -45,6 +45,16 @@
           "type": "boolean",
           "description": "Strip lib/ directory from the filename of signature. Useful for gem development",
           "default": true
+        },
+        "rbs-helper.rbs-inline-on-save": {
+          "type": "boolean",
+          "description": "Run rbs-inline on save .rb files.",
+          "default": false
+        },
+        "rbs-helper.rbs-inline-options": {
+          "type": "string",
+          "description": "Options for rbs-inline.",
+          "default": ""
         }
       }
     }

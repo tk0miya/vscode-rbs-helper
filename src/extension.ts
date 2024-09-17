@@ -1,9 +1,15 @@
 import * as vscode from 'vscode';
 import { Uri } from 'vscode';
 import * as fs from 'node:fs';
+import { exec } from 'node:child_process';
 
 export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(vscode.commands.registerCommand('rbs-helper.openRbsFile', openRBSFile));
+
+	vscode.workspace.onDidSaveTextDocument(async (document: vscode.TextDocument) => {
+		console.log(`onDidSaveTextDocument: ${document.uri.fsPath}`);
+		onDidSaveTextDocument(document);
+	});
 }
 
 export function deactivate() { }
@@ -105,4 +111,19 @@ function isCopySignaturePrototypeOnCreate(): boolean {
 
 function shouldStripLibDirectoryFromFilename(): boolean {
 	return vscode.workspace.getConfiguration('rbs-helper').get('strip-lib-directory') as boolean;
+}
+
+function onDidSaveTextDocument(document: vscode.TextDocument) {
+	const enabled = vscode.workspace.getConfiguration('rbs-helper').get('rbs-inline-on-save') as boolean;
+	if (!enabled) {
+		return
+	}
+
+	const filePath = document.uri.fsPath;
+	const relativePath = filePath ? vscode.workspace.asRelativePath(filePath) : '';
+	if (relativePath.endsWith('.rb')) {
+		const cwd = vscode.workspace.workspaceFolders?.[0].uri.fsPath || '/';
+		const options = vscode.workspace.getConfiguration('rbs-helper').get('rbs-inline-options') as string;
+		exec(`bundle exec rbs-inline ${options} ${relativePath}`, { cwd });
+	}
 }
