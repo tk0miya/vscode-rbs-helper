@@ -24,6 +24,10 @@ This extension contributes the following settings:
 
 ## Release Notes
 
+### 1.1.0
+
+* Set default setting `--opt-out --output`  to `rbs-helper.rbs-inline-options`
+
 ### 1.0.0
 
 * Run `rbs-inline` command on a .rb file saved if enabled.
