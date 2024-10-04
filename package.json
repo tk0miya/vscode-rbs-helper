@@ -54,7 +54,7 @@
         "rbs-helper.rbs-inline-options": {
           "type": "string",
           "description": "Options for rbs-inline.",
-          "default": ""
+          "default": "--opt-out --output"
         }
       }
     }
