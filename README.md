@@ -21,6 +21,7 @@ This extension contributes the following settings:
 * `rbs-helper.strip-lib-directory`: Strip `lib/` directory from the filename of signature. Useful for gem development
 * `rbs-helper.rbs-inline-on-save`: Run `rbs-inline` command on a .rb file saved
 * `rbs-helper.rbs-inline-options`: Options for `rbs-inline` command
+* `rbs-helper.rbs-inline-exclude_paths`: Exclude paths for rbs-inline (Comma separated, globbing not supported)
 
 ## Release Notes
 
