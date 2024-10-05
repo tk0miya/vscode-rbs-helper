@@ -55,6 +55,11 @@
           "type": "string",
           "description": "Options for rbs-inline.",
           "default": "--opt-out --output"
+        },
+        "rbs-helper.rbs-inline-exclude-paths": {
+          "type": "string",
+          "description": "Exclude paths for rbs-inline (Comma separated, globbing not supported).",
+          "default": "tests/,spec/"
         }
       }
     }
