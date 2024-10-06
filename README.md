@@ -26,6 +26,10 @@ This extension contributes the following settings:
 
 ## Release Notes
 
+### 1.2.1
+
+* Remove `--output` option from the default value of `rbs-inline-options`
+
 ### 1.2.0
 
 * Add a new configuration: `rbs-inline-exclude_paths` to exclude paths for rbs-inline

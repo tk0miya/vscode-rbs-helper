@@ -7,7 +7,7 @@
   },
   "publisher": "tk0miya",
   "description": "Provide simple commands to maintain RBS files",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "engines": {
     "vscode": "^1.93.0"
   },
