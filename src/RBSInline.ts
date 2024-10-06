@@ -39,6 +39,32 @@ async function deleteRBSFile(rubyFilePath: string) {
     }
 }
 
+export async function onDidRenameFiles(event: vscode.FileRenameEvent) {
+    if (!isEnabled()) {
+        return
+    }
+
+    for (const { newUri, oldUri } of event.files) {
+        const newPath = newUri.fsPath ? vscode.workspace.asRelativePath(newUri.fsPath) : '';
+        const oldPath = oldUri.fsPath ? vscode.workspace.asRelativePath(oldUri.fsPath) : '';
+        if (isTargetFile(oldPath)) {
+            renameRBSFile(oldPath, newPath);
+        }
+    }
+}
+
+async function renameRBSFile(oldRubyFilePath: string, newRubyFilePath: string) {
+    const cwd = vscode.workspace.workspaceFolders?.[0].uri.fsPath || '/';
+    const oldRbsPath = path.join(cwd, getSignatureDirectory(), oldRubyFilePath).replace(/\.rb/, '.rbs');
+    const newRbsPath = path.join(cwd, getSignatureDirectory(), newRubyFilePath).replace(/\.rb/, '.rbs');
+    try {
+        await fs.access(oldRbsPath);
+        await fs.rename(oldRbsPath, newRbsPath);
+    } catch (error) {
+        console.log(`Failed to rename ${oldRbsPath} to ${newRbsPath}: ${error}`);
+    }
+}
+
 function isEnabled(): boolean {
     return vscode.workspace.getConfiguration('rbs-helper').get('rbs-inline-on-save') as boolean;
 }
