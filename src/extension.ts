@@ -14,6 +14,10 @@ export function activate(context: vscode.ExtensionContext) {
 	vscode.workspace.onDidDeleteFiles(async (event: vscode.FileDeleteEvent) => {
 		RBSInline.onDidDeleteFiles(event);
 	});
+
+	vscode.workspace.onDidRenameFiles(async (event: vscode.FileRenameEvent) => {
+		RBSInline.onDidRenameFiles(event);
+	});
 }
 
 export function deactivate() { }
