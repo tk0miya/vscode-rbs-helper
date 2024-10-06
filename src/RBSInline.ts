@@ -1,5 +1,7 @@
 import * as vscode from 'vscode';
 import { exec } from 'node:child_process';
+import * as fs from 'node:fs/promises';
+import * as path from 'node:path';
 
 export function invoke(uri: vscode.Uri) {
     if (!isEnabled()) {
@@ -7,9 +9,33 @@ export function invoke(uri: vscode.Uri) {
     }
 
     const relativePath = uri.fsPath ? vscode.workspace.asRelativePath(uri.fsPath) : '';
-    if (relativePath.endsWith('.rb') && !fnmatch(relativePath, excludePaths())) {
+    if (isTargetFile(relativePath)) {
         const cwd = vscode.workspace.workspaceFolders?.[0].uri.fsPath || '/';
         exec(`bundle exec rbs-inline ${options()} ${relativePath}`, { cwd });
+    }
+}
+
+export async function onDidDeleteFiles(event: vscode.FileDeleteEvent) {
+    if (!isEnabled()) {
+        return
+    }
+
+    for (const uri of event.files) {
+        const relativePath = uri.fsPath ? vscode.workspace.asRelativePath(uri.fsPath) : '';
+        if (isTargetFile(relativePath)) {
+            deleteRBSFile(relativePath);
+        }
+    }
+}
+
+async function deleteRBSFile(rubyFilePath: string) {
+    const cwd = vscode.workspace.workspaceFolders?.[0].uri.fsPath || '/';
+    const rbsPath = path.join(cwd, getSignatureDirectory(), rubyFilePath).replace(/\.rb/, '.rbs');
+    try {
+        await fs.access(rbsPath);
+        await fs.unlink(rbsPath);
+    } catch (error) {
+        console.log(`Failed to delete ${rbsPath}: ${error}`);
     }
 }
 
@@ -29,6 +55,10 @@ function getSignatureDirectory(): string {
 function options(): string {
     const options = vscode.workspace.getConfiguration('rbs-helper').get('rbs-inline-options') as string;
     return `--output=${getSignatureDirectory()} ${options}`
+}
+
+function isTargetFile(path: string): boolean {
+    return path.endsWith('.rb') && !fnmatch(path, excludePaths())
 }
 
 function fnmatch(filename: string, patterns: string[]): boolean {
