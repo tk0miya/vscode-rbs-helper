@@ -10,6 +10,10 @@ export function activate(context: vscode.ExtensionContext) {
 		console.log(`onDidSaveTextDocument: ${document.uri.fsPath}`);
 		RBSInline.invoke(document.uri);
 	});
+
+	vscode.workspace.onDidDeleteFiles(async (event: vscode.FileDeleteEvent) => {
+		RBSInline.onDidDeleteFiles(event);
+	});
 }
 
 export function deactivate() { }
