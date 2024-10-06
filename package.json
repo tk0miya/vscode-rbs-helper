@@ -60,6 +60,11 @@
           "type": "string",
           "description": "Exclude paths for rbs-inline (Comma separated, globbing not supported).",
           "default": "tests/,spec/"
+        },
+        "rbs-helper.rbs-inline-signature-directory": {
+          "type": "string",
+          "description": "Signature directory for rbs-inline.",
+          "default": "sig/generated/"
         }
       }
     }
