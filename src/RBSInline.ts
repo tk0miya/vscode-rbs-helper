@@ -22,8 +22,13 @@ function excludePaths(): string[] {
     return excludePaths ? excludePaths.trim().split(/\s*,\s*/) : [];
 }
 
+function getSignatureDirectory(): string {
+    return vscode.workspace.getConfiguration('rbs-helper').get('rbs-inline-signature-directory') as string;
+}
+
 function options(): string {
-    return vscode.workspace.getConfiguration('rbs-helper').get('rbs-inline-options') as string;
+    const options = vscode.workspace.getConfiguration('rbs-helper').get('rbs-inline-options') as string;
+    return `--output=${getSignatureDirectory()} ${options}`
 }
 
 function fnmatch(filename: string, patterns: string[]): boolean {
