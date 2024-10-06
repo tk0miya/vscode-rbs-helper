@@ -26,6 +26,14 @@ This extension contributes the following settings:
 
 ## Release Notes
 
+### 1.2.0
+
+* Add a new configuration: `rbs-inline-exclude_paths` to exclude paths for rbs-inline
+* Add a new configuration: `rbs-inline-signature-directory` to specify the signature directory for rbs-inline
+    * `--output` option is no longer needed in `rbs-inline-options`
+* Delete RBS files correspond to the deleted files on Ruby files deleted
+* Rename RBS files correspond to the renamed files on Ruby files renamed
+
 ### 1.1.0
 
 * Set default setting `--opt-out --output`  to `rbs-helper.rbs-inline-options`
