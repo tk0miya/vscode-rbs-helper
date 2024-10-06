@@ -53,8 +53,8 @@
         },
         "rbs-helper.rbs-inline-options": {
           "type": "string",
-          "description": "Options for rbs-inline.",
-          "default": "--opt-out --output"
+          "description": "Options for rbs-inline (excluding --output option)",
+          "default": "--opt-out"
         },
         "rbs-helper.rbs-inline-exclude-paths": {
           "type": "string",
