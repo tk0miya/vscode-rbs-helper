@@ -20,6 +20,7 @@ This extension contributes the following settings:
 * `rbs-helper.copy-signature-prototype-on-create`: Copy the signature prototype file on creating a new RBS file
 * `rbs-helper.strip-lib-directory`: Strip `lib/` directory from the filename of signature. Useful for gem development
 * `rbs-helper.rbs-inline-on-save`: Run `rbs-inline` command on a .rb file saved
+* `rbs-helper.rbs-inline-command`: Command-line for `rbs-inline` command
 * `rbs-helper.rbs-inline-options`: Options for `rbs-inline` command (excluding --output option)
 * `rbs-helper.rbs-inline-exclude_paths`: Exclude paths for rbs-inline (Comma separated, globbing not supported)
 * `rbs-helper.rbs-inline-signature-directory`: The name of the signature directory for rbs-inline

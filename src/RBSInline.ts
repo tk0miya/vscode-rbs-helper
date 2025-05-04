@@ -16,7 +16,7 @@ export function invoke(uri: vscode.Uri) {
     const relativePath = uri.fsPath ? vscode.workspace.asRelativePath(uri.fsPath) : '';
     if (isTargetFile(relativePath)) {
         const cwd = vscode.workspace.workspaceFolders?.[0].uri.fsPath || '/';
-        exec(`bundle exec rbs-inline ${options()} ${relativePath}`, { cwd });
+        exec(`${command()} ${options()} ${relativePath}`, { cwd });
     }
 }
 
@@ -81,6 +81,10 @@ function excludePaths(): string[] {
 
 function getSignatureDirectory(): string {
     return getConfiguration<string>('rbs-inline-signature-directory');
+}
+
+function command(): string {
+    return getConfiguration<string>('rbs-inline-command');
 }
 
 function options(): string {

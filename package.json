@@ -51,6 +51,11 @@
           "description": "Run rbs-inline on save .rb files.",
           "default": false
         },
+        "rbs-helper.rbs-inline-command": {
+          "type": "string",
+          "description": "Command-line for rbs-inline",
+          "default": "bundle exec rbs-inline"
+        },
         "rbs-helper.rbs-inline-options": {
           "type": "string",
           "description": "Options for rbs-inline (excluding --output option)",
