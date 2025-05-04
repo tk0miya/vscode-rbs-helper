@@ -3,6 +3,11 @@ import { exec } from 'node:child_process';
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 
+function getConfiguration<T>(key: string): T {
+    const config = vscode.workspace.getConfiguration('rbs-helper');
+    return config.get<T>(key) as T;
+}
+
 export function invoke(uri: vscode.Uri) {
     if (!isEnabled()) {
         return
@@ -11,7 +16,7 @@ export function invoke(uri: vscode.Uri) {
     const relativePath = uri.fsPath ? vscode.workspace.asRelativePath(uri.fsPath) : '';
     if (isTargetFile(relativePath)) {
         const cwd = vscode.workspace.workspaceFolders?.[0].uri.fsPath || '/';
-        exec(`bundle exec rbs-inline ${options()} ${relativePath}`, { cwd });
+        exec(`${command()} ${options()} ${relativePath}`, { cwd });
     }
 }
 
@@ -66,20 +71,24 @@ async function renameRBSFile(oldRubyFilePath: string, newRubyFilePath: string) {
 }
 
 function isEnabled(): boolean {
-    return vscode.workspace.getConfiguration('rbs-helper').get('rbs-inline-on-save') as boolean;
+    return getConfiguration<boolean>('rbs-inline-on-save');
 }
 
 function excludePaths(): string[] {
-    const excludePaths = vscode.workspace.getConfiguration('rbs-helper').get('rbs-inline-exclude-paths') as string;
+    const excludePaths = getConfiguration<string>('rbs-inline-exclude-paths');
     return excludePaths ? excludePaths.trim().split(/\s*,\s*/) : [];
 }
 
 function getSignatureDirectory(): string {
-    return vscode.workspace.getConfiguration('rbs-helper').get('rbs-inline-signature-directory') as string;
+    return getConfiguration<string>('rbs-inline-signature-directory');
+}
+
+function command(): string {
+    return getConfiguration<string>('rbs-inline-command');
 }
 
 function options(): string {
-    const options = vscode.workspace.getConfiguration('rbs-helper').get('rbs-inline-options') as string;
+    const options = getConfiguration<string>('rbs-inline-options');
     return `--output=${getSignatureDirectory()} ${options}`
 }
 
