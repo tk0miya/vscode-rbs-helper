@@ -22,7 +22,7 @@ This extension contributes the following settings:
 * `rbs-helper.rbs-inline-on-save`: Run `rbs-inline` command on a .rb file saved
 * `rbs-helper.rbs-inline-command`: Command-line for `rbs-inline` command
 * `rbs-helper.rbs-inline-options`: Options for `rbs-inline` command (excluding --output option)
-* `rbs-helper.rbs-inline-exclude_paths`: Exclude paths for rbs-inline (Comma separated, globbing not supported)
+* `rbs-helper.rbs-inline-exclude-paths`: Exclude paths for rbs-inline (Comma separated, globbing not supported)
 * `rbs-helper.rbs-inline-signature-directory`: The name of the signature directory for rbs-inline
 
 ## Release Notes
@@ -33,7 +33,7 @@ This extension contributes the following settings:
 
 ### 1.2.0
 
-* Add a new configuration: `rbs-inline-exclude_paths` to exclude paths for rbs-inline
+* Add a new configuration: `rbs-inline-exclude-paths` to exclude paths for rbs-inline
 * Add a new configuration: `rbs-inline-signature-directory` to specify the signature directory for rbs-inline
     * `--output` option is no longer needed in `rbs-inline-options`
 * Delete RBS files correspond to the deleted files on Ruby files deleted
