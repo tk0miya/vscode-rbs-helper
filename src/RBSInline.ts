@@ -3,6 +3,30 @@ import { exec } from 'node:child_process';
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 
+export function activate(context: vscode.ExtensionContext): void {
+    // Register file save event handler
+    context.subscriptions.push(
+        vscode.workspace.onDidSaveTextDocument(async (document: vscode.TextDocument) => {
+            console.log(`onDidSaveTextDocument: ${document.uri.fsPath}`);
+            invoke(document.uri);
+        })
+    );
+
+    // Register file delete event handler
+    context.subscriptions.push(
+        vscode.workspace.onDidDeleteFiles(async (event: vscode.FileDeleteEvent) => {
+            onDidDeleteFiles(event);
+        })
+    );
+
+    // Register file rename event handler
+    context.subscriptions.push(
+        vscode.workspace.onDidRenameFiles(async (event: vscode.FileRenameEvent) => {
+            onDidRenameFiles(event);
+        })
+    );
+}
+
 function getConfiguration<T>(key: string): T {
     const config = vscode.workspace.getConfiguration('rbs-helper');
     return config.get<T>(key) as T;

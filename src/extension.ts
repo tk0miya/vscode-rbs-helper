@@ -8,19 +8,7 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(vscode.commands.registerCommand('rbs-helper.openRbsFile', openRBSFile));
 
 	LspClient.activate(context);
-
-	vscode.workspace.onDidSaveTextDocument(async (document: vscode.TextDocument) => {
-		console.log(`onDidSaveTextDocument: ${document.uri.fsPath}`);
-		RBSInline.invoke(document.uri);
-	});
-
-	vscode.workspace.onDidDeleteFiles(async (event: vscode.FileDeleteEvent) => {
-		RBSInline.onDidDeleteFiles(event);
-	});
-
-	vscode.workspace.onDidRenameFiles(async (event: vscode.FileRenameEvent) => {
-		RBSInline.onDidRenameFiles(event);
-	});
+	RBSInline.activate(context);
 }
 
 export function deactivate(): Thenable<void> | undefined {
