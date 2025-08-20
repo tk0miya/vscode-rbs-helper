@@ -14,13 +14,30 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": ["onLanguage:ruby"],
+  "activationEvents": [
+    "onLanguage:ruby"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
         "command": "rbs-helper.openRbsFile",
         "title": "RBS: Open .rbs file for the current file"
+      },
+      {
+        "command": "rbs-helper.startRbsRailsLsp",
+        "title": "Start rbs_rails LSP Server",
+        "category": "RBS Helper"
+      },
+      {
+        "command": "rbs-helper.stopRbsRailsLsp",
+        "title": "Stop rbs_rails LSP Server",
+        "category": "RBS Helper"
+      },
+      {
+        "command": "rbs-helper.restartRbsRailsLsp",
+        "title": "Restart rbs_rails LSP Server",
+        "category": "RBS Helper"
       }
     ],
     "configuration": {
@@ -70,6 +87,16 @@
           "type": "string",
           "description": "Signature directory for rbs-inline.",
           "default": "sig/generated/"
+        },
+        "rbs-helper.rbs-rails-lsp-enabled": {
+          "type": "boolean",
+          "description": "Enable rbs_rails LSP support to generate types for Rails application (experimental)",
+          "default": false
+        },
+        "rbs-helper.rbs-rails-lsp-command": {
+          "type": "string",
+          "description": "Command-line to invoke rbs_rails LSP server",
+          "default": "bundle exec rbs_rails server"
         }
       }
     }
@@ -90,5 +117,8 @@
     "mocha": "^11.7.1",
     "typescript": "^5.9.2",
     "@vscode/test-electron": "^2.5.2"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^8.0.0"
   }
 }

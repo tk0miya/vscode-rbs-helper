@@ -10,6 +10,7 @@ This extension allows you to create/edit RBS file.
 * Create a new RBS file on jumping if not found
 * Copy RBS definition from prototype RBS file on creating a new RBS file
 * Run `rbs-inline` command on a .rb file saved
+* Run rbs_rails LSP server to generate types for Rails apply on demand (experimental)
 
 ## Extension Settings
 
@@ -24,8 +25,15 @@ This extension contributes the following settings:
 * `rbs-helper.rbs-inline-options`: Options for `rbs-inline` command (excluding --output option)
 * `rbs-helper.rbs-inline-exclude-paths`: Exclude paths for rbs-inline (Comma separated, globbing not supported)
 * `rbs-helper.rbs-inline-signature-directory`: The name of the signature directory for rbs-inline
+* `rbs-helper.rbs-rails-lsp-enabled`: Enable rbs_rails LSP server
+* `rbs-helper.rbs-rails-lsp-command`: Command-line to invoke rbs_rails LSP server
 
 ## Release Notes
+
+### 1.3.0
+
+* Support rbs_rails LSP Server to generate types for Rails apply on demand (experimental)
+    * see https://github.com/pocke/rbs_rails/pull/338
 
 ### 1.2.1
 

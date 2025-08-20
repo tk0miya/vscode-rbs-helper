@@ -2,9 +2,12 @@ import * as vscode from 'vscode';
 import { Uri } from 'vscode';
 import * as RBSInline from './RBSInline';
 import * as fs from 'node:fs';
+import * as LspClient from './rbsRailsLspClient';
 
 export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(vscode.commands.registerCommand('rbs-helper.openRbsFile', openRBSFile));
+
+	LspClient.activate(context);
 
 	vscode.workspace.onDidSaveTextDocument(async (document: vscode.TextDocument) => {
 		console.log(`onDidSaveTextDocument: ${document.uri.fsPath}`);
@@ -20,8 +23,9 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 }
 
-export function deactivate() { }
-
+export function deactivate(): Thenable<void> | undefined {
+	return LspClient.deactivate();
+}
 
 function openRBSFile(): void {
 	const currentFile = vscode.window.activeTextEditor?.document.uri;
