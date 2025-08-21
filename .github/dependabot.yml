@@ -16,3 +16,5 @@ updates:
     schedule:
       interval: "weekly"
       timezone: "Asia/Tokyo"
+    ignore:
+      - dependency-name: "@types/vscode"
