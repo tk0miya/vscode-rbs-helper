@@ -10,6 +10,10 @@ updates:
     schedule:
       interval: "weekly"
       timezone: "Asia/Tokyo"
+    ignore:
+      - dependency-name: "@types/node"
+        update-types:
+          - "version-update:semver-major"
 
   - package-ecosystem: "github-actions"
     directory: "/"
