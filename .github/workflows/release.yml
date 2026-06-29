@@ -25,8 +25,6 @@ jobs:
           # See https://docs.zizmor.sh/audits/#cache-poisoning
           package-manager-cache: false
       - name: Install the dependencies
-        run: npm i
-      - name: Install vsce
-        run: npm i -g vsce
+        run: npm ci
       - name: Publish
-        run: vsce publish -p ${{ secrets.VSCE_PAT }}
+        run: npx vsce publish -p ${{ secrets.VSCE_PAT }}
