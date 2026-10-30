@@ -2,11 +2,11 @@ import * as vscode from 'vscode';
 import { LanguageClient, LanguageClientOptions, ServerOptions } from 'vscode-languageclient/node';
 
 let lspClient: RbsRailsLspClient | undefined;
-let outputChannel: vscode.OutputChannel;
+let outputChannel: vscode.LogOutputChannel;
 
 export function activate(context: vscode.ExtensionContext): void {
     // Initialize and dispose the output channel
-    outputChannel = vscode.window.createOutputChannel('RBS Rails LSP');
+    outputChannel = vscode.window.createOutputChannel('RBS Rails LSP', { log: true });
 
     context.subscriptions.push({
         dispose: () => { outputChannel?.dispose(); }
