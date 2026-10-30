@@ -18,7 +18,7 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
-          node-version: lts/*
+          node-version: "26"
           # Skip package manager cache to avoid the cache-poisoning attack at release time:
           # a poisoned cache written from a PR could otherwise be reused here
           # and end up shipped to the VS Code Marketplace.
