@@ -17,6 +17,9 @@ updates:
       # Remove an entry when it enters LTS; add the next April release as it approaches.
       - dependency-name: "@types/node"
         versions: ["25.x", "26.x", "27.x", "28.x"]
+      # vsce rejects @types/vscode newer than engines.vscode.
+      # Bump it manually together with engines.vscode.
+      - dependency-name: "@types/vscode"
 
   - package-ecosystem: "github-actions"
     directory: "/"
@@ -25,5 +28,3 @@ updates:
       timezone: "Asia/Tokyo"
     cooldown:
       default-days: 7
-    ignore:
-      - dependency-name: "@types/vscode"
