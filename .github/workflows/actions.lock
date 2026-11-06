@@ -4,49 +4,49 @@
 version: 'v0.0.3'
 workflows:
     '.github/workflows/auto-merge.yml':
-        - 'actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510'
+        - 'actions/create-github-app-token@v3.3.0'
     '.github/workflows/ci.yml':
-        - 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1'
-        - 'actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1'
+        - 'actions/checkout@v7.0.1'
+        - 'actions/setup-node@v7.1.0'
     '.github/workflows/dependabot-auto-label.yml':
-        - 'actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510'
-        - 'dependabot/fetch-metadata@25dd0e34f4fe68f24cc83900b1fe3fe149efef98'
+        - 'actions/create-github-app-token@v3.3.0'
+        - 'dependabot/fetch-metadata@v3.1.0'
     '.github/workflows/release.yml':
-        - 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1'
-        - 'actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1'
+        - 'actions/checkout@v7.0.1'
+        - 'actions/setup-node@v7.1.0'
     '.github/workflows/workflow-lint.yml':
-        - 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1'
-        - 'zizmorcore/zizmor-action@53290badfa369cb0bf7ad16342cb62c2fa47ac7b'
+        - 'actions/checkout@v7.0.1'
+        - 'zizmorcore/zizmor-action@v0.8.1'
 dependencies:
-    'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1':
+    'actions/checkout@v7.0.1':
         ref: 'v7.0.1'
         commit: 'sha1-3d3c42e5aac5ba805825da76410c181273ba90b1'
         owner_id: 44036562
         repo_id: 197814629
-    'actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510':
+    'actions/create-github-app-token@v3.3.0':
         ref: 'v3.3.0'
         commit: 'sha1-64ab729a6294000f5aa4a4bc0b73d1f32bc45510'
         owner_id: 44036562
         repo_id: 642580244
-    'actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1':
+    'actions/setup-node@v7.1.0':
         ref: 'v7.1.0'
         commit: 'sha1-949feb2413d6458794dcd2491c4babbbce0c15c1'
         owner_id: 44036562
         repo_id: 189476904
-    'dependabot/fetch-metadata@25dd0e34f4fe68f24cc83900b1fe3fe149efef98':
+    'dependabot/fetch-metadata@v3.1.0':
         ref: 'v3.1.0'
         commit: 'sha1-25dd0e34f4fe68f24cc83900b1fe3fe149efef98'
         owner_id: 27347476
         repo_id: 371068214
-    'github/codeql-action@24c54180a607b1449ed407dd24f251e4e9147c8d':
-        ref: 'v4.38.3'
-        commit: 'sha1-24c54180a607b1449ed407dd24f251e4e9147c8d'
+    'github/codeql-action@9b3254085494b55a0f7c4c2b3d2d52cc712ce370':
+        ref: 'v4.39.1'
+        commit: 'sha1-9b3254085494b55a0f7c4c2b3d2d52cc712ce370'
         owner_id: 9919
         repo_id: 259445878
-    'zizmorcore/zizmor-action@53290badfa369cb0bf7ad16342cb62c2fa47ac7b':
-        ref: 'v0.8.0'
-        commit: 'sha1-53290badfa369cb0bf7ad16342cb62c2fa47ac7b'
+    'zizmorcore/zizmor-action@v0.8.1':
+        ref: 'v0.8.1'
+        commit: 'sha1-45d7276c9ca790aabd705e31ca99c6185c3e76dd'
         owner_id: 210636713
         repo_id: 985558803
         uses:
-            - 'github/codeql-action@24c54180a607b1449ed407dd24f251e4e9147c8d'
+            - 'github/codeql-action@9b3254085494b55a0f7c4c2b3d2d52cc712ce370'
